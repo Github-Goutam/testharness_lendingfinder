@@ -1,4 +1,4 @@
-package com.rbs.testharness_lendingfinder;
+package com.rbs.lendingfinder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

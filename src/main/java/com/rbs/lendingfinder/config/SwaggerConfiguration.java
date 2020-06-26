@@ -1,4 +1,4 @@
-package com.rbs.testharness_lendingfinder.config;
+package com.rbs.lendingfinder.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
