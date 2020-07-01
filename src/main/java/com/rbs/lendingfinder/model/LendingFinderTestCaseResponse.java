@@ -8,8 +8,8 @@ public class LendingFinderTestCaseResponse {
 	private String applicationIdentity;
 	private String bankDivision;
 	private String purpose;
-	private Boolean currentFlag;
-	private Boolean overdraftFlag;
+	private Character currentAcctFlag;
+	private Character overdraftFlag;
 	private Integer borrowingAmount;
 	private Integer termFactor;
 	private String expectedProductFamily;
@@ -97,18 +97,7 @@ public class LendingFinderTestCaseResponse {
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
 	}
-	public Boolean getCurrentFlag() {
-		return currentFlag;
-	}
-	public void setCurrentFlag(Boolean currentFlag) {
-		this.currentFlag = currentFlag;
-	}
-	public Boolean getOverdraftFlag() {
-		return overdraftFlag;
-	}
-	public void setOverdraftFlag(Boolean overdraftFlag) {
-		this.overdraftFlag = overdraftFlag;
-	}
+	
 	public String getExpectedProductFamily() {
 		return expectedProductFamily;
 	}
@@ -133,4 +122,17 @@ public class LendingFinderTestCaseResponse {
 	public void setActualProductName(String actualProductName) {
 		this.actualProductName = actualProductName;
 	}
+	public Character getCurrentAcctFlag() {
+		return currentAcctFlag;
+	}
+	public void setCurrentAcctFlag(Character currentAcctFlag) {
+		this.currentAcctFlag = currentAcctFlag;
+	}
+	public Character getOverdraftFlag() {
+		return overdraftFlag;
+	}
+	public void setOverdraftFlag(Character overdraftFlag) {
+		this.overdraftFlag = overdraftFlag;
+	}
+
 }
