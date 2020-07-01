@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "THS_LENF_LOOKUP_REF")
+@Table(name = "LND_THS_LF_LOOKUP_REF")
 public class LendingFinderLookUpEntity extends BaseEntity{
 	
 	@Id
@@ -23,9 +23,9 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	@Column(name = "THS_PRC_ATTRIBUTE_ID")
 	private Integer attributeId;
 	@Column(name="CURRENTACCT_FLAG")
-	private Boolean currentFlag;
+	private Character currentFlag;
 	@Column(name="OVERDRAFT_FLAG")
-	private Boolean overdraftFlag;
+	private Character overdraftFlag;
 	@Column(name="PRODUCT_FAMILY")
 	private String productFamily;
 	@Column(name="PRODUCT_NAME")
@@ -56,18 +56,7 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	public void setAttributeId(Integer attributeId) {
 		this.attributeId = attributeId;
 	}
-	public Boolean getCurrentFlag() {
-		return currentFlag;
-	}
-	public void setCurrentFlag(Boolean currentFlag) {
-		this.currentFlag = currentFlag;
-	}
-	public Boolean getOverdraftFlag() {
-		return overdraftFlag;
-	}
-	public void setOverdraftFlag(Boolean overdraftFlag) {
-		this.overdraftFlag = overdraftFlag;
-	}
+
 	public String getProductFamily() {
 		return productFamily;
 	}
@@ -79,6 +68,18 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	public Character getCurrentFlag() {
+		return currentFlag;
+	}
+	public void setCurrentFlag(Character currentFlag) {
+		this.currentFlag = currentFlag;
+	}
+	public Character getOverdraftFlag() {
+		return overdraftFlag;
+	}
+	public void setOverdraftFlag(Character overdraftFlag) {
+		this.overdraftFlag = overdraftFlag;
 	}
 	
 }
