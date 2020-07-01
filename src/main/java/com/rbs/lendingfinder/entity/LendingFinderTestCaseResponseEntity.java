@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "THS_LENF_TEST_TXN_TB")
+@Table(name = "LND_THS_LF_TEST_TXN_TB")
 public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	
 	@Id
@@ -23,14 +23,18 @@ public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	private Integer applicationIdentity;
 	@Column(name = "BANK_DIVISION")
 	private Integer bankDivision;
+	@Column(name = "BORROWING_AMT")
+	private Integer borrowingAmount;
+	@Column(name = "TERM")
+	private Integer termFactor;
 	@Column(name = "TEST_TXN_FLAG")
 	private Character testTransactionFlag;
-	@Column(name = "PURPOSE_TD")
-	private Integer purpostId;
+	@Column(name = "PURPOSE_ID")
+	private Integer purposeId;
 	@Column(name = "CURRENTACCT_FLAG")
-	private Boolean currentAcctFlag;
+	private Character currentAcctFlag;
 	@Column(name = "OVERDRAFT_FLAG")
-	private Boolean overdraftFlag;
+	private Character overdraftFlag;
 	@Column(name = "EXPT_PRD_FAMILY")
 	private String expectedProductFamily;
 	@Column(name = "EXPT_PRD_NAME")
@@ -78,18 +82,11 @@ public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	public void setTestTransactionFlag(Character testTransactionFlag) {
 		this.testTransactionFlag = testTransactionFlag;
 	}
-	public Integer getPurpostId() {
-		return purpostId;
+	public Integer getPurposeId() {
+		return purposeId;
 	}
-	public void setPurpostId(Integer purpostId) {
-		this.purpostId = purpostId;
-	}
-	
-	public Boolean getOverdraftFlag() {
-		return overdraftFlag;
-	}
-	public void setOverdraftFlag(Boolean overdraftFlag) {
-		this.overdraftFlag = overdraftFlag;
+	public void setPurposeId(Integer purposeId) {
+		this.purposeId = purposeId;
 	}
 	public String getExpectedProductFamily() {
 		return expectedProductFamily;
@@ -115,10 +112,29 @@ public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	public void setActualProductName(String actualProductName) {
 		this.actualProductName = actualProductName;
 	}
-	public Boolean getCurrentAcctFlag() {
+	public Integer getBorrowingAmount() {
+		return borrowingAmount;
+	}
+	public void setBorrowingAmount(Integer borrowingAmount) {
+		this.borrowingAmount = borrowingAmount;
+	}
+	
+	public Integer getTermFactor() {
+		return termFactor;
+	}
+	public void setTermFactor(Integer termFactor) {
+		this.termFactor = termFactor;
+	}
+	public Character getCurrentAcctFlag() {
 		return currentAcctFlag;
 	}
-	public void setCurrentAcctFlag(Boolean currentAcctFlag) {
+	public void setCurrentAcctFlag(Character currentAcctFlag) {
 		this.currentAcctFlag = currentAcctFlag;
+	}
+	public Character getOverdraftFlag() {
+		return overdraftFlag;
+	}
+	public void setOverdraftFlag(Character overdraftFlag) {
+		this.overdraftFlag = overdraftFlag;
 	}
 }
