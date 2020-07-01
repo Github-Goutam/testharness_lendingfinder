@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "THS_LENF_TESTSET_TB")
+@Table(name = "LND_THS_LF_TESTSET_TB")
 public class LendingFinderTestSetEntity extends BaseEntity{
 	
 	@Id
@@ -26,9 +26,9 @@ public class LendingFinderTestSetEntity extends BaseEntity{
 	@Column(name = "PURPOSE")
 	private Integer purpose;
 	@Column(name = "CURRENTACCT_FLAG")
-	private Boolean currentAcctFlag;
+	private String currentAcctFlag;
 	@Column(name = "OVERDRAFT_FLAG")
-	private Boolean overdraftFlag;
+	private String overdraftFlag;
 	@Column(name = "PROCESSED_FLAG")
 	private Character processedFlag;
 	@Column(name = "ENVIRONMENT")
@@ -47,17 +47,16 @@ public class LendingFinderTestSetEntity extends BaseEntity{
 	public void setBankDivision(Integer bankDivision) {
 		this.bankDivision = bankDivision;
 	}
-	public Boolean getCurrentAcctFlag() {
+	public String getCurrentAcctFlag() {
 		return currentAcctFlag;
 	}
-	public void setCurrentAcctFlag(Boolean currentAcctFlag) {
+	public void setCurrentAcctFlag(String currentAcctFlag) {
 		this.currentAcctFlag = currentAcctFlag;
 	}
-	
-	public Boolean getOverdraftFlag() {
+	public String getOverdraftFlag() {
 		return overdraftFlag;
 	}
-	public void setOverdraftFlag(Boolean overdraftFlag) {
+	public void setOverdraftFlag(String overdraftFlag) {
 		this.overdraftFlag = overdraftFlag;
 	}
 	
