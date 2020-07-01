@@ -21,8 +21,10 @@ public class LendingFinderService {
 		final List<List<Integer>> lists = new ArrayList<List<Integer>>();
 		lists.add(new ArrayList<>(attributeInput.getBorrowingAmount()));		
 		lists.add(new ArrayList<>(attributeInput.getTermFactor()));	
-		int flags[] = {0,1};		
-		lists.add(Arrays.stream(flags).boxed().collect(Collectors.toList()));
+		int currentAccountFlags[] = {0,1};
+		int overDraftFlags [] = {0,1};
+		lists.add(Arrays.stream(currentAccountFlags).boxed().collect(Collectors.toList()));
+		lists.add(Arrays.stream(overDraftFlags).boxed().collect(Collectors.toList()));
 		//Logic to create test case combination
 		final List<Integer> list4 = new ArrayList<Integer>();
 		LendingFinderHelper.permute(lists, (permutation -> list4.addAll(permutation)));
