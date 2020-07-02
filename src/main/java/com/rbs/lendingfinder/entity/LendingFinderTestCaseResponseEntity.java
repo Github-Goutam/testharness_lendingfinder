@@ -43,6 +43,9 @@ public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	private String actualProductFamily;
 	@Column(name = "ACT_PRD_NAME")
 	private String actualProductName;
+	@Column(name = "INTEREST_RATE")
+	private String interestRate;
+
 	
 	
 	public Integer getTestTransactionId() {
@@ -136,5 +139,11 @@ public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	}
 	public void setOverdraftFlag(Character overdraftFlag) {
 		this.overdraftFlag = overdraftFlag;
+	}
+	public String getInterestRate() {
+		return interestRate;
+	}
+	public void setInterestRate(String interestRate) {
+		this.interestRate = interestRate;
 	}
 }

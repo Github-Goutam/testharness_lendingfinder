@@ -17,9 +17,11 @@ public class LendingFinderTestCaseResponse {
 	private String actualProductFamily;
 	private String actualProductName;
 	private Character testTransactionFlag;
+	private String interestRate;
 	private Long totalRecord;
 	private String environment;
 	private String createdBy;
+	
 	
 	public Integer getTestTransactionId() {
 		return testTransactionId;
@@ -133,6 +135,12 @@ public class LendingFinderTestCaseResponse {
 	}
 	public void setOverdraftFlag(Character overdraftFlag) {
 		this.overdraftFlag = overdraftFlag;
+	}
+	public String getInterestRate() {
+		return interestRate;
+	}
+	public void setInterestRate(String interestRate) {
+		this.interestRate = interestRate;
 	}
 
 }

@@ -2,8 +2,6 @@ package com.rbs.lendingfinder.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,15 +11,12 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	
 	@Id
 	//@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "THS_LENF_LOOKUP_ID")
+	@Column(name = "THS_LOOKUP_ID")
 	private Integer lookUpId;
-	
 	@Column(name = "TERM")
 	private String termFactor;
 	@Column(name = "BORROWING_AMT")
 	private String borrowingAmount;
-	@Column(name = "THS_PRC_ATTRIBUTE_ID")
-	private Integer attributeId;
 	@Column(name="CURRENTACCT_FLAG")
 	private Character currentFlag;
 	@Column(name="OVERDRAFT_FLAG")
@@ -30,7 +25,8 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	private String productFamily;
 	@Column(name="PRODUCT_NAME")
 	private String productName;
-	
+	@Column(name="INTEREST_RATE")
+	private String interestRate;
 	
 	public Integer getLookUpId() {
 		return lookUpId;
@@ -50,13 +46,7 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	public void setBorrowingAmount(String borrowingAmount) {
 		this.borrowingAmount = borrowingAmount;
 	}
-	public Integer getAttributeId() {
-		return attributeId;
-	}
-	public void setAttributeId(Integer attributeId) {
-		this.attributeId = attributeId;
-	}
-
+	
 	public String getProductFamily() {
 		return productFamily;
 	}
@@ -80,6 +70,12 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	}
 	public void setOverdraftFlag(Character overdraftFlag) {
 		this.overdraftFlag = overdraftFlag;
+	}
+	public String getInterestRate() {
+		return interestRate;
+	}
+	public void setInterestRate(String interestRate) {
+		this.interestRate = interestRate;
 	}
 	
 }

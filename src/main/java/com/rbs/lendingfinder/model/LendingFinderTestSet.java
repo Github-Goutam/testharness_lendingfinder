@@ -11,6 +11,7 @@ public class LendingFinderTestSet {
 	private Boolean currentFlag;
 	private Boolean overdraftFlag;
 	private String purpose;
+	private String environment;
 	
 	
 	public Integer getTestSetId() {
@@ -67,6 +68,12 @@ public class LendingFinderTestSet {
 	}
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
+	}
+	public String getEnvironment() {
+		return environment;
+	}
+	public void setEnvironment(String environment) {
+		this.environment = environment;
 	}
 	
 }
