@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.rbs.lendingfinder.common.LFConstant;
 import com.rbs.lendingfinder.common.LFException;
+import com.rbs.lendingfinder.entity.LendingFinderLookUpEntity;
 import com.rbs.lendingfinder.entity.LendingFinderTestCaseResponseEntity;
 import com.rbs.lendingfinder.entity.LendingFinderTestSetEntity;
 import com.rbs.lendingfinder.helper.LendingFinderHelper;
 import com.rbs.lendingfinder.model.LendingFinderAttributeRequest;
 import com.rbs.lendingfinder.model.LendingFinderTestCaseResponse;
+import com.rbs.lendingfinder.repository.LendingFinderLookUpRepository;
 import com.rbs.lendingfinder.repository.LendingFinderTestCaseResponseRepository;
 import com.rbs.lendingfinder.repository.LendingFinderTestSetRepository;
 
@@ -32,6 +36,9 @@ public class LendingFinderService {
 	
 	@Autowired
 	private LendingFinderTestCaseResponseRepository lendingFinderTestCaseResponseRepository;
+	
+	@Autowired
+	private LendingFinderLookUpRepository lendingFinderLookUpRepository;
 	
 	/*
 	 * This method will generate the Test case Combination based on the attribute inputs
@@ -108,5 +115,56 @@ public class LendingFinderService {
 		return lendingFinderTestCaseResponses;	
 		
 	}
+	
+	/*
+	 * This method will generate the Test case AIR & APR from the lookup table data
+	 */
+	public List<LendingFinderTestCaseResponse> generateTestCaseAirApr(Integer testSetId) {
+		List<LendingFinderTestCaseResponse> lfTestCaseResponseList=new ArrayList<>();
+		List<LendingFinderTestCaseResponseEntity> lfCaseResponseEntityList=new ArrayList<>();
 
+		if(null!=testSetId) {
+			Optional<List<LendingFinderTestCaseResponseEntity>> lfCaseResponseEntityLists=lendingFinderTestCaseResponseRepository.findByTestSetId(testSetId);
+			if(lfCaseResponseEntityLists.isPresent()) {
+				lfCaseResponseEntityLists.get().forEach(lfCaseResponses->{
+					LendingFinderTestCaseResponseEntity lfCaseResponseEntity=new LendingFinderTestCaseResponseEntity();
+					BeanUtils.copyProperties(lfCaseResponses, lfCaseResponseEntity);
+					Integer term=lfCaseResponses.getTermFactor();
+					Integer borrowingAmount=lfCaseResponses.getBorrowingAmount();
+					Integer purpose=lfCaseResponses.getPurposeId();
+					Character currAccountFlag=lfCaseResponses.getCurrentAcctFlag();
+					Character overDraftFlag=lfCaseResponses.getOverdraftFlag();
+					//Forming the Term Factor Range
+					String termRange=LFConstant.Empty_String;					
+					//Forming the Risk Band Range
+					String borrowingAmountRange=LFConstant.Empty_String;
+					//Making DB call to retrive the AIR & APR
+					Optional<List<LendingFinderLookUpEntity>> pricingLookUpList=lendingFinderLookUpRepository.findByPurposeIdAndCurrentAcctFlagAndoverdraftFlag(purpose,currAccountFlag,overDraftFlag);
+					if(pricingLookUpList.isPresent()) {
+						pricingLookUpList.get().forEach(pricingLookup->{
+							String borrowingAmoutnRange="";
+							String termFactorRange="";
+							if(null!=pricingLookup.getBorrowingAmount()) {
+								borrowingAmoutnRange=pricingLookup.getBorrowingAmount();
+							}
+							if(null!=pricingLookup.getTermFactor()) {
+								borrowingAmoutnRange=pricingLookup.getTermFactor();
+							}
+							
+							if(!StringUtils.isEmpty(borrowingAmoutnRange)) {
+								
+							}
+							
+						});
+					}else {
+						//Set defailt value
+					}
+					lfCaseResponseEntityList.add(lfCaseResponseEntity);
+					//Saving one by one
+					lendingFinderTestCaseResponseRepository.save(lfCaseResponseEntity);
+				});
+			}	
+		}
+		return null;
+	}
 }

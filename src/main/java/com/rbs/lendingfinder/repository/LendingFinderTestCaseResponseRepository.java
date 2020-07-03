@@ -16,7 +16,7 @@ import com.rbs.lendingfinder.entity.LendingFinderTestCaseResponseEntity;
 @Repository
 public interface LendingFinderTestCaseResponseRepository  extends JpaRepository<LendingFinderTestCaseResponseEntity, Integer>{
 	
-	//Optional<List<LendingFinderTestCaseResponseEntity>> findByTestSetId(Integer testSetId);
+	Optional<List<LendingFinderTestCaseResponseEntity>> findByTestSetId(Integer testSetId);
 	//Page<LendingFinderTestCaseResponseEntity> findByTestSetId(Integer testSetId,Pageable pageRequest);
 
 }

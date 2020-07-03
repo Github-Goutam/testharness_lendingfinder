@@ -17,8 +17,10 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	private String termFactor;
 	@Column(name = "BORROWING_AMT")
 	private String borrowingAmount;
+	@Column(name = "PURPOSE_ID")
+	private Integer purposeId;
 	@Column(name="CURRENTACCT_FLAG")
-	private Character currentFlag;
+	private Character currentAcctFlag;
 	@Column(name="OVERDRAFT_FLAG")
 	private Character overdraftFlag;
 	@Column(name="PRODUCT_FAMILY")
@@ -59,12 +61,7 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public Character getCurrentFlag() {
-		return currentFlag;
-	}
-	public void setCurrentFlag(Character currentFlag) {
-		this.currentFlag = currentFlag;
-	}
+	
 	public Character getOverdraftFlag() {
 		return overdraftFlag;
 	}
@@ -76,6 +73,18 @@ public class LendingFinderLookUpEntity extends BaseEntity{
 	}
 	public void setInterestRate(String interestRate) {
 		this.interestRate = interestRate;
+	}
+	public Integer getPurposeId() {
+		return purposeId;
+	}
+	public void setPurposeId(Integer purposeId) {
+		this.purposeId = purposeId;
+	}
+	public Character getCurrentAcctFlag() {
+		return currentAcctFlag;
+	}
+	public void setCurrentAcctFlag(Character currentAcctFlag) {
+		this.currentAcctFlag = currentAcctFlag;
 	}
 	
 }
