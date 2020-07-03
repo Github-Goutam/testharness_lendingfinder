@@ -2,12 +2,22 @@ package com.rbs.lendingfinder.helper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.rbs.lendingfinder.entity.BusinessAttributeEntity;
+import com.rbs.lendingfinder.repository.BusinessAttributeRepository;
 
 @Component
 public class LendingFinderHelper {
+	
+	@Autowired
+	private BusinessAttributeRepository businessAttributeRepository;
 
 	public static <T> void permute(final List<List<T>> lists,
 			final Consumer<List<T>> consumer) {
@@ -36,5 +46,11 @@ public class LendingFinderHelper {
 				}
 			}
 		}
+	}
+	
+	public Map<Integer,String> findBusinessAttributeDescription(){
+		List<BusinessAttributeEntity> businessAttributeEntities = businessAttributeRepository.findAll();
+		return businessAttributeEntities.stream().filter(Objects::nonNull)
+										         .collect(Collectors.toMap(BusinessAttributeEntity::getAttributeId, BusinessAttributeEntity::getRefDataDesc));
 	}
 }
