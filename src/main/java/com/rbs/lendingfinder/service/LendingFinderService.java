@@ -85,7 +85,7 @@ public class LendingFinderService {
 			lendingFinderTestCaseResponseEntity.setBankDivision(attributeInput.getBankDivision());
 			//lendingFinderTestCaseResponseEntity.setProductFamily(attributeInput.getProductFamily());
 			//lendingFinderTestCaseResponseEntity.setProductName(attributeInput.getProductName());
-			lendingFinderTestCaseResponseEntity.setPurposeId(attributeInput.getPurpose());
+			lendingFinderTestCaseResponseEntity.setPurposeId(attributeInput.getPurposeId());
 			lendingFinderTestCaseResponseEntity.setBorrowingAmount(list4.get(j++));
 			//lendingFinderTestCaseResponseEntity.setRiskBand(list4.get(j++));
 			lendingFinderTestCaseResponseEntity.setTermFactor(list4.get(j++));
@@ -105,7 +105,7 @@ public class LendingFinderService {
 				lendingFinderTestCaseResponse.setBankDivision(businessAttributeMap.get(entity.getBankDivision()));
 				//lendingFinderTestCaseResponse.setProductName(businessAttributeMap.get(entity.getProductName()));
 				//lendingFinderTestCaseResponse.setProductFamily(businessAttributeMap.get(entity.getProductFamily()));
-				lendingFinderTestCaseResponse.setPurpose(businessAttributeMap.get(entity.getPurposeId()));
+				lendingFinderTestCaseResponse.setPurposeId(businessAttributeMap.get(entity.getPurposeId()));
 				lendingFinderTestCaseResponse.setTotalRecord((long) lendingFinderTestCaseResponseEntities.size());
 				lendingFinderTestCaseResponses.add(lendingFinderTestCaseResponse);
 			}
@@ -134,37 +134,69 @@ public class LendingFinderService {
 					Integer purpose=lfCaseResponses.getPurposeId();
 					Character currAccountFlag=lfCaseResponses.getCurrentAcctFlag();
 					Character overDraftFlag=lfCaseResponses.getOverdraftFlag();
-					//Forming the Term Factor Range
-					String termRange=LFConstant.Empty_String;					
-					//Forming the Risk Band Range
-					String borrowingAmountRange=LFConstant.Empty_String;
 					//Making DB call to retrive the AIR & APR
-					Optional<List<LendingFinderLookUpEntity>> pricingLookUpList=lendingFinderLookUpRepository.findByPurposeIdAndCurrentAcctFlagAndoverdraftFlag(purpose,currAccountFlag,overDraftFlag);
+					Optional<List<LendingFinderLookUpEntity>> pricingLookUpList=lendingFinderLookUpRepository.findByPurposeIdAndCurrentAcctFlagAndOverdraftFlag(purpose,currAccountFlag,overDraftFlag);
+					String finalProductFamily="";
+					String finalProductName="";
 					if(pricingLookUpList.isPresent()) {
-						pricingLookUpList.get().forEach(pricingLookup->{
-							String borrowingAmoutnRange="";
-							String termFactorRange="";
+						for(LendingFinderLookUpEntity pricingLookup : pricingLookUpList.get()) {
+							//Forming the Term Factor Range
+							String termFactorRange=LFConstant.Empty_String;	
+							//Forming the Risk Band Range
+							String borrowingAmoutnRange=LFConstant.Empty_String;
 							if(null!=pricingLookup.getBorrowingAmount()) {
 								borrowingAmoutnRange=pricingLookup.getBorrowingAmount();
 							}
 							if(null!=pricingLookup.getTermFactor()) {
-								borrowingAmoutnRange=pricingLookup.getTermFactor();
+								termFactorRange=pricingLookup.getTermFactor();
 							}
 							
-							if(!StringUtils.isEmpty(borrowingAmoutnRange)) {
-								
+							if(!StringUtils.isEmpty(borrowingAmoutnRange) && !StringUtils.isEmpty(termFactorRange)) {
+								boolean finalValue=lendingFinderHelper.setLookUpProductFamilyAndProductNameValues(borrowingAmount,term,borrowingAmoutnRange,termFactorRange,lfCaseResponseEntity,pricingLookup);
+								if(finalValue) {
+									if(""!=finalProductFamily) {
+										finalProductFamily=finalProductFamily+","+pricingLookup.getProductFamily();
+									}else {
+										finalProductFamily=finalProductFamily+pricingLookup.getProductFamily();
+
+									}
+									if(""!=finalProductName) {
+										finalProductName=finalProductName+","+pricingLookup.getProductName();
+									}else {
+										finalProductName=finalProductName+pricingLookup.getProductName();
+									}
+								}
 							}
 							
-						});
-					}else {
-						//Set defailt value
+						}
+						lfCaseResponseEntity.setExpectedProductFamily(finalProductFamily);
+						lfCaseResponseEntity.setExpectedProductName(finalProductName);
+
 					}
 					lfCaseResponseEntityList.add(lfCaseResponseEntity);
 					//Saving one by one
 					lendingFinderTestCaseResponseRepository.save(lfCaseResponseEntity);
 				});
-			}	
+			}
+			Optional<List<LendingFinderTestCaseResponseEntity>> lfCaseResponseEntityFinalList=lendingFinderTestCaseResponseRepository.findByTestSetId(testSetId);
+
+			if(lfCaseResponseEntityFinalList.get() != null && !lfCaseResponseEntityFinalList.get().isEmpty()) {
+				Map<Integer, String> businessAttributeMap = lendingFinderHelper.findBusinessAttributeDescription();
+				for(LendingFinderTestCaseResponseEntity entity : lfCaseResponseEntityFinalList.get()) {
+					LendingFinderTestCaseResponse lendingFinderTestCaseResponse = new LendingFinderTestCaseResponse();
+					BeanUtils.copyProperties(entity, lendingFinderTestCaseResponse);
+					lendingFinderTestCaseResponse.setApplicationIdentity(businessAttributeMap.get(entity.getApplicationIdentity()));
+					lendingFinderTestCaseResponse.setBankDivision(businessAttributeMap.get(entity.getBankDivision()));
+					//lendingFinderTestCaseResponse.setProductName(businessAttributeMap.get(entity.getProductName()));
+					//lendingFinderTestCaseResponse.setProductFamily(businessAttributeMap.get(entity.getProductFamily()));
+					lendingFinderTestCaseResponse.setPurposeId(businessAttributeMap.get(entity.getPurposeId()));
+					lendingFinderTestCaseResponse.setTotalRecord((long) lfCaseResponseEntityFinalList.get().size());
+					lfTestCaseResponseList.add(lendingFinderTestCaseResponse);
+				}
+			}else {
+				throw new LFException(HttpStatus.NOT_FOUND,"Test Case not found","Not found");
+			}
 		}
-		return null;
+		return lfTestCaseResponseList;	
 	}
 }

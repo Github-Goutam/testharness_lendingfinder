@@ -7,7 +7,7 @@ public class LendingFinderTestCaseResponse {
 	private String testTransactionNo;
 	private String applicationIdentity;
 	private String bankDivision;
-	private String purpose;
+	private String purposeId;
 	private Character currentAcctFlag;
 	private Character overdraftFlag;
 	private Integer borrowingAmount;
@@ -93,13 +93,6 @@ public class LendingFinderTestCaseResponse {
 		this.createdBy = createdBy;
 	}
 	
-	public String getPurpose() {
-		return purpose;
-	}
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
-	
 	public String getExpectedProductFamily() {
 		return expectedProductFamily;
 	}
@@ -141,6 +134,12 @@ public class LendingFinderTestCaseResponse {
 	}
 	public void setInterestRate(String interestRate) {
 		this.interestRate = interestRate;
+	}
+	public String getPurposeId() {
+		return purposeId;
+	}
+	public void setPurposeId(String purposeId) {
+		this.purposeId = purposeId;
 	}
 
 }

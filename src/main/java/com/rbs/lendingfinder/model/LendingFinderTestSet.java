@@ -10,7 +10,7 @@ public class LendingFinderTestSet {
 	private Character processedFlag;
 	private Boolean currentFlag;
 	private Boolean overdraftFlag;
-	private String purpose;
+	private String purposeId;
 	private String environment;
 	
 	
@@ -63,17 +63,17 @@ public class LendingFinderTestSet {
 	public void setOverdraftFlag(Boolean overdraftFlag) {
 		this.overdraftFlag = overdraftFlag;
 	}
-	public String getPurpose() {
-		return purpose;
-	}
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
 	public String getEnvironment() {
 		return environment;
 	}
 	public void setEnvironment(String environment) {
 		this.environment = environment;
+	}
+	public String getPurposeId() {
+		return purposeId;
+	}
+	public void setPurposeId(String purposeId) {
+		this.purposeId = purposeId;
 	}
 	
 }

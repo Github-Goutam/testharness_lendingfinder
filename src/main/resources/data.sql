@@ -49,7 +49,7 @@ CREATE TABLE LND_THS_LF_TEST_TXN_TB (
   TEST_TXN_NO 		VARCHAR(25),
   APPL_IDENTITY     INTEGER,
   BANK_DIVISION     INTEGER,
-  PURPOSE           INTEGER,
+  PURPOSE_ID        INTEGER,
   TERM       		INTEGER,
   BORROWING_AMT     INTEGER,
   TEST_TXN_FLAG     VARCHAR(2), --CHAR
@@ -70,9 +70,9 @@ CREATE TABLE LND_THS_LF_TEST_TXN_TB (
 CREATE TABLE LND_THS_LF_LOOKUP_REF (
 
   THS_LOOKUP_ID 	INTEGER  PRIMARY KEY,
+  PURPOSE_ID        INTEGER,
   TERM       		VARCHAR(25),
   BORROWING_AMT     VARCHAR(25),
-  PURPOSE           INTEGER,
   CURRENTACCT_FLAG  VARCHAR(2),
   OVERDRAFT_FLAG    VARCHAR(2),
   INTEREST_RATE     VARCHAR(20),
@@ -84,6 +84,9 @@ CREATE TABLE LND_THS_LF_LOOKUP_REF (
   LAST_UPD_TS       DATE
   
 );
---insert into THS_PRC_LOOKUP_REF values(1,5,'>=12<=35','>=1000<5000',6,0,'','2008-11-11','','2008-11-11');
---insert into THS_PRC_LOOKUP_REF values(2,3,'>=12<=35','>=5000<10000',7,0,'','2008-11-11','','2008-11-11');
---insert into THS_PRC_LOOKUP_REF values(3,9,'>=12<=35','>=10000<15000',8,0,'','2008-11-11','','2008-11-11');
+insert into LND_THS_LF_LOOKUP_REF values(1,5,'>=12&<=35','>=1000&<5000','Y','N','','fam1','pna1','','2008-11-11','','2008-11-11');
+insert into LND_THS_LF_LOOKUP_REF values(2,5,'>=12&<=35','>=5000&<10000','N','Y','','fam2','pna2','','2008-11-11','','2008-11-11');
+insert into LND_THS_LF_LOOKUP_REF values(3,5,'>=12&<=35','>=1000&<15000','Y','N','','fam3','pna3','','2008-11-11','','2008-11-11');
+insert into LND_THS_LF_LOOKUP_REF values(4,5,'>=36','>=1000&<5000','Y','N','','fam4','pna4','','2008-11-11','','2008-11-11');
+insert into LND_THS_LF_LOOKUP_REF values(5,5,'>=36','>=5000&<10000','Y','N','','fam5','pna5','','2008-11-11','','2008-11-11');
+insert into LND_THS_LF_LOOKUP_REF values(6,5,'>=36','>=1000&<15000','Y','N','','fam6','pna6','','2008-11-11','','2008-11-11');

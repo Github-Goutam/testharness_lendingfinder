@@ -35,9 +35,9 @@ public class LendingFinderTestCaseResponseEntity extends BaseEntity{
 	private Character currentAcctFlag;
 	@Column(name = "OVERDRAFT_FLAG")
 	private Character overdraftFlag;
-	@Column(name = "EXPT_PRD_FAMILY")
+	@Column(name = "EXP_PRD_FAMILY")
 	private String expectedProductFamily;
-	@Column(name = "EXPT_PRD_NAME")
+	@Column(name = "EXP_PRD_NAME")
 	private String expectedProductName;
 	@Column(name = "ACT_PRD_FAMILY")
 	private String actualProductFamily;

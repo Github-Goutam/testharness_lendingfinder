@@ -13,7 +13,7 @@ import com.rbs.lendingfinder.entity.LendingFinderLookUpEntity;
 @Repository
 public interface LendingFinderLookUpRepository extends JpaRepository<LendingFinderLookUpEntity, Integer>{
 	
-	Optional<List<LendingFinderLookUpEntity>> findByPurposeIdAndCurrentAcctFlagAndoverdraftFlag(Integer purpose,Character currAccountFlag,Character overDraftFlag);
+	Optional<List<LendingFinderLookUpEntity>> findByPurposeIdAndCurrentAcctFlagAndOverdraftFlag(Integer purpose,Character currAccountFlag,Character overDraftFlag);
 	//@Query( value="select max(THS_LENF_LOOKUP_ID) from THS_LENF_LOOKUP_REF", nativeQuery=true)
 	
 	//Integer findMaxLookUpID();

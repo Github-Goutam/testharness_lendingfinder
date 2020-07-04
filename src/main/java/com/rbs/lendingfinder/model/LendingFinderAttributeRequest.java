@@ -9,7 +9,7 @@ public class LendingFinderAttributeRequest {
 	private Integer bankDivision;
 	private Integer applicationIdentity;
 	private String userId;
-	private Integer purpose;
+	private Integer purposeId;
 	private List<Integer> currentAcctFlag;
 	private List<Integer> overdraftFlag;
 	
@@ -56,13 +56,7 @@ public class LendingFinderAttributeRequest {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Integer getPurpose() {
-		return purpose;
-	}
-
-	public void setPurpose(Integer purpose) {
-		this.purpose = purpose;
-	}
+	
 	public List<Integer> getCurrentAcctFlag() {
 		return currentAcctFlag;
 	}
@@ -77,6 +71,14 @@ public class LendingFinderAttributeRequest {
 
 	public void setOverdraftFlag(List<Integer> overdraftFlag) {
 		this.overdraftFlag = overdraftFlag;
+	}
+
+	public Integer getPurposeId() {
+		return purposeId;
+	}
+
+	public void setPurposeId(Integer purposeId) {
+		this.purposeId = purposeId;
 	}
 
 
